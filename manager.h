@@ -90,6 +90,8 @@ private slots:
 
     void on_show_new_user_password_checkBox_clicked(bool checked);
 
+    void on_shells_checkBox_clicked(bool checked);
+
 private:
     Ui::Manager *ui;
     // username & password

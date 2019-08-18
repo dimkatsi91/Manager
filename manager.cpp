@@ -228,6 +228,25 @@ void Manager::on_exit_manager_checkBox_clicked(bool checked)
     }
 }
 
+// List the available system shells [ aka bash, tcsh, ksh, etc... ]
+void Manager::on_shells_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        QProcess proc;
+        QString shells;
+        proc.start("cat /etc/shells");
+        proc.waitForFinished(-1);
+        if(proc.exitCode()!=0)
+        {
+            QMessageBox::warning(this, "WARNING", "Could not find available shells in path /ec/shells !");
+            return;
+        }
+        shells = proc.readAllStandardOutput();
+        QMessageBox::information(this, "Available shells", shells);
+    }
+}
+
 /* ============================================================================================================ */
 /*                                           TOOLBAR ACTIONS SECTION                                            */
 /* ============================================================================================================ */

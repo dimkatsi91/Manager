@@ -47,6 +47,9 @@ void Manager::init()
     ui->retype_password_lineEdit->setEchoMode(QLineEdit::Password);
 }
 
+/* ============================================================================================================ */
+/*                                      SECTION I : Credentials                                                 */
+/* ============================================================================================================ */
 // Show or hide the password when user checks or unchecks this box
 void Manager::on_show_password_checkBox_clicked(bool checked)
 {
@@ -113,3 +116,113 @@ void Manager::on_submit_button_clicked()
     submit_validation = true;
     QMessageBox::information(this, "INFO", "Password entered. Continuing..");
 }
+
+/* ============================================================================================================ */
+/*                                      SECTION II : Information Section                                        */
+/* ============================================================================================================ */
+// List human users
+void Manager::cat_users()
+{
+    QProcess users_proc;
+    QString real_users;
+    users_proc.start("bash", QStringList() << "-c" << "cut -d: -f1,3 /etc/passwd | egrep ':[0-9]{4}$' | cut -d: -f1");
+    if(!users_proc.waitForFinished(3000) || users_proc.exitCode()!=0)
+    {
+        QMessageBox::critical(this, "ERROR", "Something went wrong. Please try again!");
+        return;
+    }
+    real_users = users_proc.readAllStandardOutput();
+    QMessageBox::information(this, "Real System Users", real_users);
+    return;
+}
+
+void Manager::on_human_users_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        cat_users();
+    }
+}
+
+// List human system groups
+void Manager::cat_groups()
+{
+    QProcess groups_proc;
+    QString real_users;
+    groups_proc.start("bash", QStringList() << "-c" << "cut -d: -f1,3 /etc/group | egrep ':[0-9]{4}$' | cut -d: -f1");
+    if(!groups_proc.waitForFinished(3000) || groups_proc.exitCode()!=0)
+    {
+        QMessageBox::critical(this, "ERROR", "Something went wrong. Please try again!");
+        return;
+    }
+    real_users = groups_proc.readAllStandardOutput();
+    QMessageBox::information(this, "Real System Groups", real_users);
+    return;
+}
+
+void Manager::on_human_groups_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        cat_groups();
+    }
+}
+
+// Clear the Credentials Section Fields
+void Manager::on_clear_credentials_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->username_lineEdit->setText("");
+        ui->password_lineEdit->setText("");
+        ui->retype_password_lineEdit->setText("");
+    }
+}
+
+// Clear User Management fields
+void Manager::on_clear_user_fields_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->new_username_lineEdit->setText("");
+        ui->new_user_real_name_lineEdit->setText("");
+        ui->new_user_group_lineEdit->setText("");
+        ui->new_user_id_lineEdit->setText("");
+        ui->new_user_home_lineEdit->setText("");
+        ui->new_user_shell_lineEdit->setText("");
+        ui->new_user_password_lineEdit->setText("");
+    }
+}
+
+// Clear Group Management fields
+void Manager::on_clear_group_fields_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        ui->group_name_lineEdit->setText("");
+        ui->group_id_lineEdit->setText("");
+        ui->new_group_name_lineEdit->setText("");
+    }
+}
+
+// Exit the application
+void Manager::on_exit_manager_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        int checked_action = QMessageBox::question(this, "Quit and close Application ?",
+                                                   "You are about to exit the Application. Are you sure you want to continue?", QMessageBox::No | QMessageBox::Yes);
+        if(checked_action==QMessageBox::Yes) {
+            close();
+        } else  if(checked_action==QMessageBox::No) {
+            return;
+        }
+    }
+}
+
+/* ============================================================================================================ */
+/*                                      SECTION III : Group Management                                          */
+/* ============================================================================================================ */
+
+
+

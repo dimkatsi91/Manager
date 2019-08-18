@@ -30,11 +30,27 @@ public:
     bool compare_usernames();
     // Find out if password is the correct one!
     bool compare_passwords();
+    // List / grep real human system users
+    void cat_users();
+    // List / grep all real system groups
+    void cat_groups();
 
 private slots:
     void on_show_password_checkBox_clicked(bool checked);
 
     void on_submit_button_clicked();
+
+    void on_human_users_checkBox_clicked(bool checked);
+
+    void on_human_groups_checkBox_clicked(bool checked);
+
+    void on_clear_credentials_checkBox_clicked(bool checked);
+
+    void on_clear_user_fields_checkBox_clicked(bool checked);
+
+    void on_clear_group_fields_checkBox_clicked(bool checked);
+
+    void on_exit_manager_checkBox_clicked(bool checked);
 
 private:
     Ui::Manager *ui;

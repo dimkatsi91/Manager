@@ -414,6 +414,12 @@ void Manager::on_remove_group_button_clicked()
 // Rename a group | If it exists of course
 void Manager::on_rename_group_button_clicked()
 {
+    if(getNew_groupname().isEmpty())
+    {
+        QMessageBox::warning(this, "ERROR", "Cannot rename group: " + getGroupname() + " to: []! Enter new groupname and try again!");
+        return;
+    }
+
     if(!submit_validation)
     {
         QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");

@@ -6,339 +6,383 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>588</height>
+    <width>707</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Welcome to Linux Manager</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QGroupBox" name="Credentials_groupBox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>10</y>
-      <width>301</width>
-      <height>193</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Credentials</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout">
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout_2">
-       <item>
-        <widget class="QLabel" name="username_label">
+   <layout class="QGridLayout" name="gridLayout_5">
+    <item row="0" column="0">
+     <widget class="QGroupBox" name="Credentials_groupBox">
+      <property name="title">
+       <string>Credentials</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="username_label">
+           <property name="text">
+            <string>Username </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="password_label">
+           <property name="text">
+            <string>Password </string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="retype_password_label">
+           <property name="text">
+            <string>Retype Password</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="1">
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <widget class="QLineEdit" name="username_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="password_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="retype_password_lineEdit"/>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="show_password_checkBox">
          <property name="text">
-          <string>Username </string>
+          <string>Show password</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="password_label">
+       <item row="2" column="0">
+        <widget class="QPushButton" name="submit_button">
          <property name="text">
-          <string>Password </string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="retype_password_label">
-         <property name="text">
-          <string>Retype Password</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </item>
-     <item row="0" column="1">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QLineEdit" name="username_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="password_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="retype_password_lineEdit"/>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QCheckBox" name="show_password_checkBox">
-       <property name="text">
-        <string>Show password</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QPushButton" name="submit_button">
-       <property name="text">
-        <string>Submit</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QGroupBox" name="user_groupBox">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>230</y>
-      <width>301</width>
-      <height>288</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>User Management</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_2">
-     <item row="0" column="0">
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QLabel" name="new_username_label">
-         <property name="text">
-          <string>User Name</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="new_real_name_label">
-         <property name="text">
-          <string>Real Name</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="new_user_group_label">
-         <property name="text">
-          <string>Group</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="new_user_id_label">
-         <property name="text">
-          <string>ID</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="new_user_home_label">
-         <property name="text">
-          <string>Home</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="new_user_shell_label">
-         <property name="text">
-          <string>Shell</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="new_user_password_label">
-         <property name="text">
-          <string>Password</string>
+          <string>Submit</string>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-     <item row="0" column="1" colspan="2">
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QLineEdit" name="new_username_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="new_user_rela_name_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="new_user_group_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="new_user_id_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="new_user_home_lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="new_user_shell__lineEdit"/>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="new_user_password_lineEdit"/>
-       </item>
-      </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="create_new_user_button">
-       <property name="text">
-        <string>CREATE</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>102</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item row="1" column="2">
-      <widget class="QPushButton" name="remove_user_button">
-       <property name="text">
-        <string>REMOVE</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>10</y>
-      <width>291</width>
-      <height>191</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>INFORMATION</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_4">
-     <item row="0" column="0">
-      <widget class="QCheckBox" name="human_users_checkBox">
-       <property name="text">
-        <string>List human users</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="0">
-      <widget class="QCheckBox" name="human_groups_checkBox">
-       <property name="text">
-        <string>List human groups</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QCheckBox" name="clear_credentials_checkBox">
-       <property name="text">
-        <string>Clear Credentials Fields</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QCheckBox" name="clear_user_fields_checkBox">
-       <property name="text">
-        <string>Clear User Management Fields</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QCheckBox" name="clear_group_fields_checkBox">
-       <property name="text">
-        <string>Clear Group Management Fields</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
-      <widget class="QCheckBox" name="exit_manager_checkBox">
-       <property name="text">
-        <string>Exit Manager</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QGroupBox" name="groups_groupBox">
-    <property name="geometry">
-     <rect>
-      <x>360</x>
-      <y>230</y>
-      <width>296</width>
-      <height>164</height>
-     </rect>
-    </property>
-    <property name="title">
-     <string>Group Management</string>
-    </property>
-    <layout class="QGridLayout" name="gridLayout_3">
-     <item row="0" column="0" colspan="2">
-      <layout class="QVBoxLayout" name="verticalLayout_5">
-       <item>
-        <widget class="QLabel" name="group_name_label">
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>62</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>INFORMATION</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="human_users_checkBox">
          <property name="text">
-          <string>Group Name</string>
+          <string>List human users</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="group_id_label">
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="human_groups_checkBox">
          <property name="text">
-          <string>Group ID</string>
+          <string>List human groups</string>
          </property>
         </widget>
        </item>
-       <item>
-        <widget class="QLabel" name="new_group_name_label">
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="clear_credentials_checkBox">
          <property name="text">
-          <string>New Group Name</string>
+          <string>Clear Credentials Fields</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="clear_user_fields_checkBox">
+         <property name="text">
+          <string>Clear User Management Fields</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="clear_group_fields_checkBox">
+         <property name="text">
+          <string>Clear Group Management Fields</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QCheckBox" name="exit_manager_checkBox">
+         <property name="text">
+          <string>Exit Manager</string>
          </property>
         </widget>
        </item>
       </layout>
-     </item>
-     <item row="0" column="2" colspan="2">
-      <layout class="QVBoxLayout" name="verticalLayout_6">
-       <item>
-        <widget class="QLineEdit" name="group_name_lineEdit"/>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>17</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="2" rowspan="2">
+     <spacer name="verticalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>121</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="0" rowspan="2">
+     <widget class="QGroupBox" name="user_groupBox">
+      <property name="title">
+       <string>User Management</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QLabel" name="new_username_label">
+           <property name="text">
+            <string>User Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_real_name_label">
+           <property name="text">
+            <string>Real Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_user_group_label">
+           <property name="text">
+            <string>Group</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_user_id_label">
+           <property name="text">
+            <string>ID</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_user_home_label">
+           <property name="text">
+            <string>Home</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_user_shell_label">
+           <property name="text">
+            <string>Shell</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_user_password_label">
+           <property name="text">
+            <string>Password</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </item>
-       <item>
-        <widget class="QLineEdit" name="group_id_lineEdit"/>
+       <item row="0" column="1" colspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <widget class="QLineEdit" name="new_username_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_user_rela_name_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_user_group_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_user_id_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_user_home_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_user_shell__lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_user_password_lineEdit"/>
+         </item>
+        </layout>
        </item>
-       <item>
-        <widget class="QLineEdit" name="new_group_name_lineEdit"/>
+       <item row="1" column="0" colspan="3">
+        <widget class="QCheckBox" name="confirm_user_stuff_checkBox">
+         <property name="text">
+          <string>Confirm above elements</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="create_new_user_button">
+         <property name="text">
+          <string>CREATE</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <spacer name="horizontalSpacer">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>117</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="2" column="2">
+        <widget class="QPushButton" name="remove_user_button">
+         <property name="text">
+          <string>REMOVE</string>
+         </property>
+        </widget>
        </item>
       </layout>
-     </item>
-     <item row="1" column="0">
-      <widget class="QPushButton" name="create_group_button">
-       <property name="text">
-        <string>CREATE</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="1" colspan="2">
-      <widget class="QPushButton" name="create_group_button_2">
-       <property name="text">
-        <string>RENAME</string>
-       </property>
-      </widget>
-     </item>
-     <item row="1" column="3">
-      <widget class="QPushButton" name="create_group_button_3">
-       <property name="text">
-        <string>REMOVE</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <spacer name="horizontalSpacer_3">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>62</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="3" column="2">
+     <widget class="QGroupBox" name="groups_groupBox">
+      <property name="title">
+       <string>Group Management</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0" colspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout_5">
+         <item>
+          <widget class="QLabel" name="group_name_label">
+           <property name="text">
+            <string>Group Name</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="group_id_label">
+           <property name="text">
+            <string>Group ID</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="new_group_name_label">
+           <property name="text">
+            <string>New Group Name</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item row="0" column="2" colspan="2">
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <widget class="QLineEdit" name="group_name_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="group_id_lineEdit"/>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="new_group_name_lineEdit"/>
+         </item>
+        </layout>
+       </item>
+       <item row="1" column="0" colspan="4">
+        <widget class="QCheckBox" name="confirm_group_stuff_checkBox">
+         <property name="text">
+          <string>Confirm above elements</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="create_group_button">
+         <property name="text">
+          <string>CREATE</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" colspan="2">
+        <widget class="QPushButton" name="rename_group_button">
+         <property name="text">
+          <string>RENAME</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="3">
+        <widget class="QPushButton" name="remove_group_button">
+         <property name="text">
+          <string>REMOVE</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>678</width>
+     <width>707</width>
      <height>22</height>
     </rect>
    </property>

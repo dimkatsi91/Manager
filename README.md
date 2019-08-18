@@ -12,3 +12,6 @@
 
 -------------------------------------------------------------------------------
 
+- [x] Manager Interface
+
+![Manager](https://github.com/dimkatsi91/Manager/blob/master/samples/Manager.png)

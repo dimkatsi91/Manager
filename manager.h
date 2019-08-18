@@ -36,6 +36,26 @@ public:
     void cat_groups();
     // Exit the application function
     void exit_app();
+    /*
+     * Group Management related functions
+     */
+    // Create a new group
+    bool groupadd();
+    // Rename an existing group
+    bool groupmod();
+    // Remove an existing group
+    bool groupdel();
+    // Check if a group exists
+    bool group_exists();
+
+    QString getGroupname() const;
+    void setGroupname(const QString &value);
+
+    QString getNew_groupname() const;
+    void setNew_groupname(const QString &value);
+
+    QString getGid() const;
+    void setGid(const QString &value);
 
 private slots:
     void on_show_password_checkBox_clicked(bool checked);
@@ -60,6 +80,14 @@ private slots:
 
     void on_actionAbout_Manager_triggered();
 
+    void on_confirm_group_stuff_checkBox_clicked(bool checked);
+
+    void on_create_group_button_clicked();
+
+    void on_remove_group_button_clicked();
+
+    void on_rename_group_button_clicked();
+
 private:
     Ui::Manager *ui;
     // username & password
@@ -68,6 +96,10 @@ private:
     // A bool that is set to true only if username & password
     // provided by the user are the correct ones of course
     bool submit_validation = false;
+    // Group Management related string variables
+    QString groupname;
+    QString new_groupname;
+    QString gid;    // The GID (aka Group ID)
 };
 
 #endif // MANAGER_H

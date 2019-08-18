@@ -251,4 +251,187 @@ void Manager::on_actionAbout_Manager_triggered()
 /* ============================================================================================================ */
 /*                                      SECTION III : Group Management                                          */
 /* ============================================================================================================ */
+QString Manager::getGid() const
+{
+    return gid;
+}
 
+void Manager::setGid(const QString &value)
+{
+    gid = value;
+}
+
+QString Manager::getNew_groupname() const
+{
+    return new_groupname;
+}
+
+void Manager::setNew_groupname(const QString &value)
+{
+    new_groupname = value;
+}
+
+QString Manager::getGroupname() const
+{
+    return groupname;
+}
+
+void Manager::setGroupname(const QString &value)
+{
+    groupname = value;
+}
+
+bool Manager::group_exists()
+{
+    QProcess proc;
+    proc.start("getent group " + getGroupname());
+    proc.waitForFinished(-1);
+    if(proc.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Manager::groupadd()
+{
+    QProcess pass, add;
+    pass.setStandardOutputProcess(&add);
+    pass.start("echo " + getPassword());
+    if(gid.isEmpty())
+    {
+        add.start("sudo -S groupadd " + getGroupname());
+    }
+    else {
+        add.start("sudo -S groupadd -g " + getGid() + " " + getGroupname());
+    }
+    pass.waitForFinished(-1);
+    add.waitForFinished(-1);
+    if(add.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Manager::groupmod()
+{
+    QProcess pass, mod;
+    pass.setStandardOutputProcess(&mod);
+    pass.start("echo " + getPassword());
+    mod.start("sudo -S groupmod -n " + getNew_groupname() + " " + getGroupname());
+    pass.waitForFinished(-1);
+    mod.waitForFinished(-1);
+    if(mod.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Manager::groupdel()
+{
+    QProcess pass, del;
+    pass.setStandardOutputProcess(&del);
+    pass.start("echo " + getPassword());
+    del.start("sudo -S groupdel " + getGroupname());
+    pass.waitForFinished(-1);
+    del.waitForFinished(-1);
+    qDebug() << "Stdout: " << del.readAllStandardOutput();
+    qDebug() << "Sttderr: " << del.readAllStandardError();
+    if(del.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Manager::on_confirm_group_stuff_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        // If this checkbox is 'checked' then grab group related info
+        setGroupname(ui->group_name_lineEdit->text());
+        setNew_groupname(ui->new_group_name_lineEdit->text());
+        setGid(ui->group_id_lineEdit->text());
+        if(getGroupname().isEmpty())
+        {
+            QMessageBox::warning(this, "WARNING", "Please provide compulsory option groupname and try again!");
+        }
+    }
+}
+
+// Create the new group | Only if it does not already exist
+void Manager::on_create_group_button_clicked()
+{
+    if(!submit_validation)
+    {
+        QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+        return;
+    }
+    if(group_exists()==true)
+    {
+        QMessageBox::warning(this, "WARNING", "This group already exists in the system. Please try with another one!");
+        return;
+    }
+    // Else create the new group called 'groupname'
+    if(groupadd())
+    {
+        QMessageBox::information(this, "SUCCESS", "The new group: " + getGroupname() + " successfully created!");
+        return;
+    }
+    else {
+        QMessageBox::critical(this, "FAILURE", "New group: " + getGroupname() + " failed to be created!");
+        return;
+    }
+}
+
+// Remove the group | Only if it exists in the system
+void Manager::on_remove_group_button_clicked()
+{
+    if(!submit_validation)
+    {
+        QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+        return;
+    }
+    if(!group_exists())
+    {
+        QMessageBox::warning(this, "WARNING", "This group already does not exist in the system. No need to remove it!");
+        return;
+    }
+    // Else remove it
+    if(groupdel())
+    {
+        QMessageBox::information(this, "SUCCESS", "The group: " + getGroupname() + " successfully removed from the system!");
+        return;
+    }
+    else {
+        QMessageBox::critical(this, "FAILURE", "The group: " + getGroupname() + " failed to be removed from the system!");
+        return;
+    }
+}
+
+// Rename a group | If it exists of course
+void Manager::on_rename_group_button_clicked()
+{
+    if(!submit_validation)
+    {
+        QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+        return;
+    }
+    if(!group_exists())
+    {
+        QMessageBox::warning(this, "WARNING", "This group already does not exist in the system!");
+        return;
+    }
+    // Else try to rename this group named getGroupname()
+    if(groupmod())
+    {
+        QMessageBox::information(this, "SUCCESS", "The group: " + getGroupname() + " successfully renamed to: " + getNew_groupname() + " !");
+        return;
+    }
+    else {
+        QMessageBox::critical(this, "FAILURE", "The group: " + getGroupname() + " failed to be renamed to: " + getNew_groupname() + " !");
+        return;
+    }
+}

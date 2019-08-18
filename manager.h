@@ -34,6 +34,8 @@ public:
     void cat_users();
     // List / grep all real system groups
     void cat_groups();
+    // Exit the application function
+    void exit_app();
 
 private slots:
     void on_show_password_checkBox_clicked(bool checked);
@@ -51,6 +53,12 @@ private slots:
     void on_clear_group_fields_checkBox_clicked(bool checked);
 
     void on_exit_manager_checkBox_clicked(bool checked);
+
+    void on_actionExit_Manager_triggered();
+
+    void on_actionAbout_Author_triggered();
+
+    void on_actionAbout_Manager_triggered();
 
 private:
     Ui::Manager *ui;

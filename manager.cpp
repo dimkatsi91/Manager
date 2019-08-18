@@ -205,24 +205,47 @@ void Manager::on_clear_group_fields_checkBox_clicked(bool checked)
     }
 }
 
-// Exit the application
+// Exit the application helper function to call whenever I wish!
+void Manager::exit_app()
+{
+    int checked_action = QMessageBox::question(this, "Quit and close Application ?",
+                                               "You are about to exit the Application. Are you sure you want to continue?", QMessageBox::No | QMessageBox::Yes);
+    if(checked_action==QMessageBox::Yes) {
+        close();
+    } else  if(checked_action==QMessageBox::No) {
+        return;
+    }
+}
+
 void Manager::on_exit_manager_checkBox_clicked(bool checked)
 {
     if(checked)
     {
-        int checked_action = QMessageBox::question(this, "Quit and close Application ?",
-                                                   "You are about to exit the Application. Are you sure you want to continue?", QMessageBox::No | QMessageBox::Yes);
-        if(checked_action==QMessageBox::Yes) {
-            close();
-        } else  if(checked_action==QMessageBox::No) {
-            return;
-        }
+        exit_app();
     }
+}
+
+/* ============================================================================================================ */
+/*                                           TOOLBAR ACTIONS SECTION                                            */
+/* ============================================================================================================ */
+void Manager::on_actionExit_Manager_triggered()
+{
+    exit_app();
+}
+
+void Manager::on_actionAbout_Author_triggered()
+{
+    QString author("Author: Dimos Katsimardos\nManager Version: v1.0\nDate: August 18, 2019");
+    QMessageBox::information(this, "Author Information", author);
+}
+
+void Manager::on_actionAbout_Manager_triggered()
+{
+    QString manager("Manager for Linux systems regarding Users, Groups and Networking activities.");
+    QMessageBox::information(this, "Manager Information", manager);
 }
 
 /* ============================================================================================================ */
 /*                                      SECTION III : Group Management                                          */
 /* ============================================================================================================ */
-
-
 

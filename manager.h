@@ -88,6 +88,8 @@ private slots:
 
     void on_rename_group_button_clicked();
 
+    void on_show_new_user_password_checkBox_clicked(bool checked);
+
 private:
     Ui::Manager *ui;
     // username & password

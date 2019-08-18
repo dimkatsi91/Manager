@@ -386,6 +386,16 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuAbout">
+    <property name="title">
+     <string>About</string>
+    </property>
+    <addaction name="actionAbout_Manager"/>
+    <addaction name="actionAbout_Author"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit_Manager"/>
+   </widget>
+   <addaction name="menuAbout"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -394,10 +404,43 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="actionAbout_Manager"/>
+   <addaction name="actionAbout_Author"/>
+   <addaction name="separator"/>
+   <addaction name="actionExit_Manager"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionAbout_Manager">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/about_manager.png</normaloff>:/about_manager.png</iconset>
+   </property>
+   <property name="text">
+    <string>About Manager</string>
+   </property>
+  </action>
+  <action name="actionAbout_Author">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/about_author.png</normaloff>:/about_author.png</iconset>
+   </property>
+   <property name="text">
+    <string>About Author</string>
+   </property>
+  </action>
+  <action name="actionExit_Manager">
+   <property name="icon">
+    <iconset resource="icons/icons.qrc">
+     <normaloff>:/exit.png</normaloff>:/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Exit Manager</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="icons/icons.qrc"/>
+ </resources>
  <connections/>
 </ui>

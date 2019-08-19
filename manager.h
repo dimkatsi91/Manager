@@ -62,6 +62,10 @@ public:
     bool adduser();
     bool deluser();
     bool user_exists();
+    // set ownership and permissions for the new user's home directory
+    // in order to be able to lg in there when login to the system
+    bool set_chown();
+    bool set_chmod();
 
     QString getNew_username() const;
     void setNew_username(const QString &value);

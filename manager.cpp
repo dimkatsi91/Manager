@@ -613,6 +613,37 @@ void Manager::on_confirm_user_stuff_checkBox_clicked(bool checked)
     }
 }
 
+// Ownership & Permissions for the home directory of the new user
+bool Manager::set_chown()
+{
+    QProcess passwd, chown;
+    passwd.setStandardOutputProcess(&chown);
+    passwd.start("echo " + getPassword());
+    chown.start("sudo -S chown " + getNew_username() + " /home/" + getNew_username());
+    chown.waitForFinished(6000);
+    passwd.waitForFinished(6000);
+    if(chown.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool Manager::set_chmod()
+{
+    QProcess pass, chmod;
+    pass.setStandardOutputProcess(&chmod);
+    pass.start("echo " + getPassword());
+    chmod.start("sudo -S chmod -R u=rwx,g=rw,o=--- /home/" + getNew_username());
+    chmod.waitForFinished(6000);
+    pass.waitForFinished(6000);
+    if(chmod.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
 // Create tthe new user using a QProcess
 bool Manager::adduser()
 {

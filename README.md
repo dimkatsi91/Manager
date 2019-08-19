@@ -19,15 +19,19 @@
 
 - [x] Example I : Adding a new group in the system :
 
-	- Step i: Provide credentials & press Submit
 
-![creds](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_i.png)
+  - Step i: Provide credentials & press Submit
+	
 
-	- Step ii: Enter group name and group id (GID)
+  ![creds](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_i.png)
 
-![new group info](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_ii.png)
 
-	- Step iii: Check the new group entry by checking the box 'List human groups'
+  - Step ii: Enter group name and group id (GID), check 'Confirm above elements' box and press 'CREATE' button 
+	
 
-![sanity check for new group](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_iii.png)
+  ![new group info](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_ii.png)
+
+  - Step iii: Check the new group entry by checking the box 'List human groups'
+
+  ![sanity check for new group](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_iii.png)
 

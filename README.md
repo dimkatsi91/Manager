@@ -35,3 +35,14 @@
 
   ![sanity check for new group](https://github.com/dimkatsi91/Manager/blob/master/samples/add_group_iii.png)
 
+- [x] Example II : Add a neew user in the system :
+
+  - Step i: Enter creadentials and press Submit
+  
+  - Step ii: Enter new user related information fields and press 'Confirm above elements'
+  
+  ![confirm user stuff](https://github.com/dimkatsi91/Manager/blob/master/samples/add_user_i.png)
+  
+  - Step iii: Check that the new user is really created by listing human system users
+  
+  ![list new user](https://github.com/dimkatsi91/Manager/blob/master/samples/add_user_ii.png)

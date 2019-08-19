@@ -39,6 +39,12 @@ public:
     /*
      * Group Management related functions
      */
+    QString getGroupname() const;
+    void setGroupname(const QString &value);
+    QString getNew_groupname() const;
+    void setNew_groupname(const QString &value);
+    QString getGid() const;
+    void setGid(const QString &value);
     // Create a new group
     bool groupadd();
     // Rename an existing group
@@ -48,14 +54,30 @@ public:
     // Check if a group exists
     bool group_exists();
 
-    QString getGroupname() const;
-    void setGroupname(const QString &value);
+    /*
+     * User Management related functions
+     */
+    void create_enc_password();
+    bool is_username_valid();
+    bool adduser();
 
-    QString getNew_groupname() const;
-    void setNew_groupname(const QString &value);
+    QString getNew_username() const;
+    void setNew_username(const QString &value);
 
-    QString getGid() const;
-    void setGid(const QString &value);
+    QString getNew_user_realname() const;
+    void setNew_user_realname(const QString &value);
+
+    QString getNew_user_group() const;
+    void setNew_user_group(const QString &value);
+
+    QString getNew_user_id() const;
+    void setNew_user_id(const QString &value);
+
+    QString getNew_user_shell() const;
+    void setNew_user_shell(const QString &value);
+
+    QString getNew_user_encr_password() const;
+    void setNew_user_encr_password(const QString &value);
 
 private slots:
     void on_show_password_checkBox_clicked(bool checked);
@@ -92,6 +114,10 @@ private slots:
 
     void on_shells_checkBox_clicked(bool checked);
 
+    void on_confirm_user_stuff_checkBox_clicked(bool checked);
+
+    void on_create_new_user_button_clicked();
+
 private:
     Ui::Manager *ui;
     // username & password
@@ -104,6 +130,14 @@ private:
     QString groupname;
     QString new_groupname;
     QString gid;    // The GID (aka Group ID)
+    // User Management related string variables
+    QString new_username;
+    QString new_user_realname;
+    QString new_user_group;
+    QString new_user_id;
+    QString new_user_shell;
+    QString new_user_encr_password;
+
 };
 
 #endif // MANAGER_H

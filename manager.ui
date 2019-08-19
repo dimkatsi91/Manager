@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>689</width>
-    <height>680</height>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -184,13 +184,6 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="new_user_home_label">
-           <property name="text">
-            <string>Home</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QLabel" name="new_user_shell_label">
            <property name="text">
             <string>Shell</string>
@@ -219,9 +212,6 @@
          </item>
          <item>
           <widget class="QLineEdit" name="new_user_id_lineEdit"/>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="new_user_home_lineEdit"/>
          </item>
          <item>
           <widget class="QLineEdit" name="new_user_shell_lineEdit"/>

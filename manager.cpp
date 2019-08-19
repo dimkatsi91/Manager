@@ -117,7 +117,7 @@ void Manager::on_submit_button_clicked()
     }
     // Checks are ok by now.
     submit_validation = true;
-    QMessageBox::information(this, "INFO", "Password entered. Continuing..");
+    QMessageBox::information(this, "INFO", "Credentials entered. Continue procedure ...");
 }
 
 /* ============================================================================================================ */
@@ -191,7 +191,6 @@ void Manager::on_clear_user_fields_checkBox_clicked(bool checked)
         ui->new_user_real_name_lineEdit->setText("");
         ui->new_user_group_lineEdit->setText("");
         ui->new_user_id_lineEdit->setText("");
-        ui->new_user_home_lineEdit->setText("");
         ui->new_user_shell_lineEdit->setText("");
         ui->new_user_password_lineEdit->setText("");
     }
@@ -356,8 +355,6 @@ bool Manager::groupdel()
     del.start("sudo -S groupdel " + getGroupname());
     pass.waitForFinished(-1);
     del.waitForFinished(-1);
-    qDebug() << "Stdout: " << del.readAllStandardOutput();
-    qDebug() << "Sttderr: " << del.readAllStandardError();
     if(del.exitCode()!=0)
     {
         return false;
@@ -464,6 +461,84 @@ void Manager::on_rename_group_button_clicked()
 /* ============================================================================================================ */
 /*                                       SECTION III : User Management                                          */
 /* ============================================================================================================ */
+QString Manager::getNew_user_shell() const
+{
+    return new_user_shell;
+}
+
+void Manager::setNew_user_shell(const QString &value)
+{
+    new_user_shell = value;
+}
+
+QString Manager::getNew_user_id() const
+{
+    return new_user_id;
+}
+
+void Manager::setNew_user_id(const QString &value)
+{
+    new_user_id = value;
+}
+
+QString Manager::getNew_user_group() const
+{
+    return new_user_group;
+}
+
+void Manager::setNew_user_group(const QString &value)
+{
+    new_user_group = value;
+}
+
+QString Manager::getNew_user_realname() const
+{
+    return new_user_realname;
+}
+
+void Manager::setNew_user_realname(const QString &value)
+{
+    new_user_realname = value;
+}
+
+QString Manager::getNew_username() const
+{
+    return new_username;
+}
+
+void Manager::setNew_username(const QString &value)
+{
+    new_username = value;
+}
+
+QString Manager::getNew_user_encr_password() const
+{
+    return new_user_encr_password;
+}
+
+void Manager::setNew_user_encr_password(const QString &value)
+{
+    new_user_encr_password = value;
+}
+
+void Manager::create_enc_password()
+{
+    // opnssl passwd <plain_password>  --> creates the encrypted password hash
+    // to be used with the useradd -p <password_hash> option !
+    QProcess openssl;
+    openssl.start("openssl passwd " + ui->new_user_password_lineEdit->text());
+    openssl.waitForFinished();
+    QString hold(openssl.readAllStandardOutput());
+    hold.remove("\n");
+    setNew_user_encr_password(hold);
+    if(openssl.exitCode()!=0)
+    {
+        new_user_encr_password = "";
+    }
+    qDebug() << "Encrypted password Stdout : " << openssl.readAllStandardOutput();
+    qDebug() << "password: " << ui->new_user_password_lineEdit->text();
+    qDebug() << "new_user_enc_password: " << getNew_user_encr_password();
+}
 
 
 void Manager::on_show_new_user_password_checkBox_clicked(bool checked)
@@ -476,5 +551,120 @@ void Manager::on_show_new_user_password_checkBox_clicked(bool checked)
     else {
         // If this checkbox is un-checked, please hide the password
         ui->new_user_password_lineEdit->setEchoMode(QLineEdit::Password);
+    }
+}
+
+// Add a new user in the system
+//useradd command example :: useradd -c "Real User Name" -m -u <UID> -g <GROUP> -d /home/$username -s <shell> $username
+bool Manager::is_username_valid()
+{
+    // Name of the new user should not start with a digit
+    if(getNew_username() == getenv("USER") || getNew_username().at(0).isDigit())
+    {
+        //QMessageBox::warning(this, "ERROR", "Can not create the currently logged user!");
+        return false;
+    }
+    QVector<QString> invalid_characters = {"`", "~", "@", "!", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "<", ">", ",", ".", "=", "_", "/", ";", ":", "?"};
+    QVector<QString>::iterator start = invalid_characters.begin();
+    if(getNew_username()=="root")
+    {
+        return false;
+    }
+    while(start != invalid_characters.end())
+    {
+        if(getNew_username().at(0) == *start)
+        {
+            return false;
+        }
+        start++;
+    }
+
+    return true;
+}
+
+// Confirm box is checked | Set new user information fields / string variables
+void Manager::on_confirm_user_stuff_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        // If this box is checked, then set all entered stuff from the user regarding the new user to be created
+        setNew_username(ui->new_username_lineEdit->text());
+        setNew_user_realname(ui->new_user_real_name_lineEdit->text());
+        setNew_user_group(ui->new_user_group_lineEdit->text());
+        setNew_user_id(ui->new_user_id_lineEdit->text());
+        setNew_user_shell(ui->new_user_shell_lineEdit->text());
+        setNew_groupname(ui->new_user_group_lineEdit->text());
+        // This functions takes the password as plain text and sets the new_user_enc_password as an encrypted hash
+        // of the entered plain text password using openssl
+        create_enc_password();
+        // Next check is new_username || new_user_password are empty
+        // The other fields can be empty | Doesn't matter so much
+        if(getNew_username().isEmpty() || getNew_user_encr_password().isEmpty())
+        {
+            QMessageBox::information(this, "ERROR", "The username and password for the new user should not be empty!");
+            return;
+        }
+        if(!is_username_valid())
+        {
+            QMessageBox::warning(this, "ERROR", "Please provide a valid username and try again!");
+            return;
+        }
+    }
+}
+
+// Create tthe new user using a QProcess
+bool Manager::adduser()
+{
+    QString options;
+    QProcess pass, add;
+    pass.setStandardOutputProcess(&add);
+    pass.start("echo " + getPassword());
+    if(!getNew_user_realname().isEmpty())
+    {
+        options += " -c " + getNew_user_realname();
+    }
+    if(!getNew_user_group().isEmpty())
+    {
+        options += " -g " + getNew_groupname();
+    }
+    if(!getNew_user_id().isEmpty())
+    {
+        options += " -u " + getNew_user_id();
+    }
+    options += " -m -d /home/" + getNew_username();
+    if(!getNew_user_shell().isEmpty())
+    {
+        options += " -s /bin/" + getNew_user_shell();
+    }
+    options += " -p " + getNew_user_encr_password();
+    options += " " + getNew_username();
+    add.start("sudo -S useradd " + options);
+    add.waitForFinished(-1);
+    if(add.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Manager::on_create_new_user_button_clicked()
+{
+    if(!submit_validation)
+    {
+        QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+        return;
+    }
+    // Remember to check here if the entered group for the new user who will be created
+    // exists in the system, or the user should create this group from the GROUP Management Section
+
+    //
+    if(adduser())
+    {
+        QMessageBox::information(this, "SUCCESS", "The new user: " + getNew_username() + " created successfully!");
+        return;
+    }
+    else {
+        QMessageBox::critical(this, "FAILURE", "The user: " + getNew_username() + " Failed to be created!");
+        return;
     }
 }

@@ -593,7 +593,11 @@ void Manager::on_confirm_user_stuff_checkBox_clicked(bool checked)
         setNew_groupname(ui->new_user_group_lineEdit->text());
         // This functions takes the password as plain text and sets the new_user_enc_password as an encrypted hash
         // of the entered plain text password using openssl
-        create_enc_password();
+        if(!ui->new_user_password_lineEdit->text().isEmpty())
+        {
+            // If this check is missing, openssl process is running ... at the background ! Problem !
+            create_enc_password();
+        }
         // Next check is new_username || new_user_password are empty
         // The other fields can be empty | Doesn't matter so much
         if(getNew_username().isEmpty() || getNew_user_encr_password().isEmpty())
@@ -651,6 +655,13 @@ void Manager::on_create_new_user_button_clicked()
         QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
         return;
     }
+    // Check if the user exists in the system
+    if(user_exists())
+    {
+        QMessageBox::information(this, "INFO", "The user: " + getNew_username() + " already exists in the system. Please try with another name!");
+        return;
+    }
+
     // Remember to check here if the entered group for the new user who will be created
     // exists in the system, or the user should create this group from the GROUP Management Section
 
@@ -662,6 +673,58 @@ void Manager::on_create_new_user_button_clicked()
     }
     else {
         QMessageBox::critical(this, "FAILURE", "The user: " + getNew_username() + " Failed to be created!");
+        return;
+    }
+}
+
+// REMOVE A USER
+bool Manager::deluser()
+{
+    QProcess pass, del;
+    pass.setStandardOutputProcess(&del);
+    pass.start("echo " + getPassword());
+    del.start("sudo -S userdel " + getNew_username());
+    pass.waitForFinished();
+    del.waitForFinished(-1);
+    if(del.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+// CHeck if a user exists in the system
+bool Manager::user_exists()
+{
+    QProcess proc;
+    proc.start("id " + getNew_username());
+    proc.waitForFinished();
+    if(proc.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
+void Manager::on_remove_user_button_clicked()
+{
+    if(!submit_validation)
+    {
+        QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+        return;
+    }
+    if(!user_exists())
+    {
+        QMessageBox::information(this, "WARNING", "The user: " + getNew_username() + " does not exist in the system!");
+        return;
+    }
+    if(deluser())
+    {
+        QMessageBox::information(this, "SUCCESS", "The user: " + getNew_username() + " successfully removed from the system!");
+        return;
+    }
+    else {
+        QMessageBox::critical(this, "FAILURE", "The user: " + getNew_username() + " failed to be removed from the system! Please try again!");
         return;
     }
 }

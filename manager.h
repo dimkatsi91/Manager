@@ -60,6 +60,8 @@ public:
     void create_enc_password();
     bool is_username_valid();
     bool adduser();
+    bool deluser();
+    bool user_exists();
 
     QString getNew_username() const;
     void setNew_username(const QString &value);
@@ -117,6 +119,8 @@ private slots:
     void on_confirm_user_stuff_checkBox_clicked(bool checked);
 
     void on_create_new_user_button_clicked();
+
+    void on_remove_user_button_clicked();
 
 private:
     Ui::Manager *ui;

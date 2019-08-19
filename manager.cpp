@@ -676,6 +676,8 @@ bool Manager::adduser()
     {
         return false;
     }
+    set_chmod();
+    set_chown();
     return true;
 }
 

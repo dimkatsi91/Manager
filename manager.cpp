@@ -535,9 +535,9 @@ void Manager::create_enc_password()
     {
         new_user_encr_password = "";
     }
-    qDebug() << "Encrypted password Stdout : " << openssl.readAllStandardOutput();
-    qDebug() << "password: " << ui->new_user_password_lineEdit->text();
-    qDebug() << "new_user_enc_password: " << getNew_user_encr_password();
+    //qDebug() << "Encrypted password Stdout : " << openssl.readAllStandardOutput();
+    //qDebug() << "password: " << ui->new_user_password_lineEdit->text();
+    //qDebug() << "new_user_enc_password: " << getNew_user_encr_password();
 }
 
 
@@ -621,7 +621,7 @@ bool Manager::adduser()
     pass.start("echo " + getPassword());
     if(!getNew_user_realname().isEmpty())
     {
-        options += " -c " + getNew_user_realname();
+        options += " -c \"" + getNew_user_realname() + "\"";
     }
     if(!getNew_user_group().isEmpty())
     {
@@ -640,6 +640,8 @@ bool Manager::adduser()
     options += " " + getNew_username();
     add.start("sudo -S useradd " + options);
     add.waitForFinished(-1);
+    qDebug() << "useradd stdout: " << add.readAllStandardOutput();
+    qDebug() << "useradd stderr: " << add.readAllStandardError();
     if(add.exitCode()!=0)
     {
         return false;

@@ -761,3 +761,112 @@ void Manager::on_remove_user_button_clicked()
         return;
     }
 }
+
+/* ============================================================================================================ */
+/*                                           SECTION IV : Networking                                            */
+/* ============================================================================================================ */
+bool Manager::netstat()
+{
+    QProcess net;
+    // r -> display routing table argument
+    net.start("netstat -r");
+    net.waitForFinished(6000);
+    QString hold(net.readAllStandardOutput());
+    if(net.exitCode()!=0)
+    {
+        return false;
+    }
+    QMessageBox::information(this, "ROUTING TABLE", hold);
+    return true;
+}
+
+bool Manager::ifconfig()
+{
+    QProcess ifconf;
+    ifconf.start("ifconfig");
+    ifconf.waitForFinished(6000);
+    QString hold(ifconf.readAllStandardOutput());
+    if(ifconf.exitCode()!=0)
+    {
+        return false;
+    }
+    QMessageBox::information(this, "INTERFACES", hold);
+    return true;
+}
+
+bool Manager::iptables()
+{
+    QProcess pass, ip_proc;
+    pass.setStandardOutputProcess(&ip_proc);
+    pass.start("echo " + getPassword());
+    ip_proc.start("sudo -S iptables -L --line-numbers");
+    ip_proc.waitForFinished(6000);
+    pass.waitForFinished(6000);
+    QString hold(ip_proc.readAllStandardOutput());
+    if(ip_proc.exitCode()!=0)
+    {
+        return false;
+    }
+    QMessageBox::information(this, "FIREWALL NETFILTER TABLE", hold);
+    return true;
+}
+
+void Manager::on_interfaces_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        if(!submit_validation)
+        {
+            QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+            return;
+        }
+        if(ifconfig())
+        {
+            return;
+        }
+        else {
+            QMessageBox::warning(this, "ERROR", "net tools seem miss from your system. Please install them and try again!");
+            return;
+        }
+    }
+}
+
+void Manager::on_routing_table_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        if(!submit_validation)
+        {
+            QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+            return;
+        }
+        if(netstat())
+        {
+            return;
+        }
+        else {
+            QMessageBox::warning(this, "ERROR", "net tools seem miss from your system. Please install them and try again!");
+            return;
+        }
+    }
+}
+
+void Manager::on_firewall_checkBox_clicked(bool checked)
+{
+    if(checked)
+    {
+        if(!submit_validation)
+        {
+            QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
+            return;
+        }
+        if(iptables())
+        {
+            return;
+        }
+        else {
+            QMessageBox::warning(this, "ERROR", "net tools seem miss from your system. Please install them and try again!");
+            return;
+        }
+    }
+}

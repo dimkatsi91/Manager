@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_5">
-    <item row="0" column="0" rowspan="3">
+    <item row="0" column="0">
      <widget class="QGroupBox" name="Credentials_groupBox">
       <property name="title">
        <string>Credentials</string>
@@ -76,16 +76,36 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="2" colspan="2">
+    <item row="0" column="1">
+     <spacer name="horizontalSpacer_2">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>44</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="0" column="2" rowspan="2">
      <widget class="QGroupBox" name="Information_groupBox">
       <property name="title">
        <string>INFORMATION</string>
       </property>
       <layout class="QGridLayout" name="gridLayout_4">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="human_users_checkBox">
+       <item row="5" column="0">
+        <widget class="QCheckBox" name="firewall_checkBox">
          <property name="text">
-          <string>List human users</string>
+          <string>Print Firewall</string>
+         </property>
+        </widget>
+       </item>
+       <item row="7" column="0">
+        <widget class="QCheckBox" name="clear_user_fields_checkBox">
+         <property name="text">
+          <string>Clear User Management Fields</string>
          </property>
         </widget>
        </item>
@@ -93,6 +113,41 @@
         <widget class="QCheckBox" name="human_groups_checkBox">
          <property name="text">
           <string>List human groups</string>
+         </property>
+        </widget>
+       </item>
+       <item row="8" column="0">
+        <widget class="QCheckBox" name="clear_group_fields_checkBox">
+         <property name="text">
+          <string>Clear Group Management Fields</string>
+         </property>
+        </widget>
+       </item>
+       <item row="9" column="0">
+        <widget class="QCheckBox" name="exit_manager_checkBox">
+         <property name="text">
+          <string>Exit Manager</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="human_users_checkBox">
+         <property name="text">
+          <string>List human users</string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QCheckBox" name="clear_credentials_checkBox">
+         <property name="text">
+          <string>Clear Credentials Fields</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="routing_table_checkBox">
+         <property name="text">
+          <string>Print Routing Table</string>
          </property>
         </widget>
        </item>
@@ -104,37 +159,16 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QCheckBox" name="clear_credentials_checkBox">
+        <widget class="QCheckBox" name="interfaces_checkBox">
          <property name="text">
-          <string>Clear Credentials Fields</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="clear_user_fields_checkBox">
-         <property name="text">
-          <string>Clear User Management Fields</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="0">
-        <widget class="QCheckBox" name="clear_group_fields_checkBox">
-         <property name="text">
-          <string>Clear Group Management Fields</string>
-         </property>
-        </widget>
-       </item>
-       <item row="6" column="0">
-        <widget class="QCheckBox" name="exit_manager_checkBox">
-         <property name="text">
-          <string>Exit Manager</string>
+          <string>Print Network Interfaces</string>
          </property>
         </widget>
        </item>
       </layout>
      </widget>
     </item>
-    <item row="3" column="0">
+    <item row="1" column="0">
      <spacer name="verticalSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -147,7 +181,7 @@
       </property>
      </spacer>
     </item>
-    <item row="4" column="0" rowspan="2">
+    <item row="2" column="0" rowspan="2">
      <widget class="QGroupBox" name="user_groupBox">
       <property name="title">
        <string>User Management</string>
@@ -265,7 +299,7 @@
       </layout>
      </widget>
     </item>
-    <item row="4" column="3">
+    <item row="2" column="2">
      <spacer name="verticalSpacer_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
@@ -278,7 +312,7 @@
       </property>
      </spacer>
     </item>
-    <item row="5" column="1">
+    <item row="3" column="1">
      <spacer name="horizontalSpacer_3">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
@@ -291,7 +325,7 @@
       </property>
      </spacer>
     </item>
-    <item row="5" column="3">
+    <item row="3" column="2">
      <widget class="QGroupBox" name="groups_groupBox">
       <property name="title">
        <string>Group Management</string>
@@ -365,19 +399,6 @@
        </item>
       </layout>
      </widget>
-    </item>
-    <item row="0" column="1">
-     <spacer name="horizontalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>44</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>

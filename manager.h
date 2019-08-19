@@ -67,6 +67,13 @@ public:
     bool set_chown();
     bool set_chmod();
 
+    /*
+     * Networking Section related functions
+     */
+    bool ifconfig();
+    bool netstat();
+    bool iptables();
+
     QString getNew_username() const;
     void setNew_username(const QString &value);
 
@@ -125,6 +132,12 @@ private slots:
     void on_create_new_user_button_clicked();
 
     void on_remove_user_button_clicked();
+
+    void on_interfaces_checkBox_clicked(bool checked);
+
+    void on_routing_table_checkBox_clicked(bool checked);
+
+    void on_firewall_checkBox_clicked(bool checked);
 
 private:
     Ui::Manager *ui;

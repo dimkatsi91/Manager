@@ -26,13 +26,16 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        manager.cpp
+        manager.cpp \
+        netinfo.cpp
 
 HEADERS += \
-        manager.h
+        manager.h \
+        netinfo.h
 
 FORMS += \
-        manager.ui
+        manager.ui \
+        netinfo.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

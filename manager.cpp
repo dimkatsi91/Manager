@@ -1,5 +1,6 @@
 #include "manager.h"
 #include "ui_manager.h"
+#include "netinfo.h"
 
 Manager::Manager(QWidget *parent) :
     QMainWindow(parent),
@@ -765,7 +766,7 @@ void Manager::on_remove_user_button_clicked()
 /* ============================================================================================================ */
 /*                                           SECTION IV : Networking                                            */
 /* ============================================================================================================ */
-bool Manager::netstat()
+QString Manager::netstat()
 {
     QProcess net;
     // r -> display routing table argument
@@ -774,13 +775,12 @@ bool Manager::netstat()
     QString hold(net.readAllStandardOutput());
     if(net.exitCode()!=0)
     {
-        return false;
+        return "[]";
     }
-    QMessageBox::information(this, "ROUTING TABLE", hold);
-    return true;
+    return hold;
 }
 
-bool Manager::ifconfig()
+QString Manager::ifconfig()
 {
     QProcess ifconf;
     ifconf.start("ifconfig");
@@ -788,13 +788,12 @@ bool Manager::ifconfig()
     QString hold(ifconf.readAllStandardOutput());
     if(ifconf.exitCode()!=0)
     {
-        return false;
+        return "[]";
     }
-    QMessageBox::information(this, "INTERFACES", hold);
-    return true;
+    return hold;
 }
 
-bool Manager::iptables()
+QString Manager::iptables()
 {
     QProcess pass, ip_proc;
     pass.setStandardOutputProcess(&ip_proc);
@@ -805,10 +804,9 @@ bool Manager::iptables()
     QString hold(ip_proc.readAllStandardOutput());
     if(ip_proc.exitCode()!=0)
     {
-        return false;
+        return "[]";
     }
-    QMessageBox::information(this, "FIREWALL NETFILTER TABLE", hold);
-    return true;
+    return hold;
 }
 
 void Manager::on_interfaces_checkBox_clicked(bool checked)
@@ -820,14 +818,12 @@ void Manager::on_interfaces_checkBox_clicked(bool checked)
             QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
             return;
         }
-        if(ifconfig())
-        {
-            return;
-        }
-        else {
-            QMessageBox::warning(this, "ERROR", "net tools seem miss from your system. Please install them and try again!");
-            return;
-        }
+        // Show the NetInfo Dialog
+        NetInfo *NetInfoDialog = new NetInfo(this);
+        NetInfoDialog->setWindowTitle("NETWORK INTERFACES");
+        QString info = ifconfig();
+        NetInfoDialog->catchText(info);
+        NetInfoDialog->exec();
     }
 }
 
@@ -840,14 +836,12 @@ void Manager::on_routing_table_checkBox_clicked(bool checked)
             QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
             return;
         }
-        if(netstat())
-        {
-            return;
-        }
-        else {
-            QMessageBox::warning(this, "ERROR", "net tools seem miss from your system. Please install them and try again!");
-            return;
-        }
+        // Show the NetInfo Dialog
+        NetInfo *NetInfoDialog = new NetInfo(this);
+        NetInfoDialog->setWindowTitle("ROUTING TABLE");
+        QString info = netstat();
+        NetInfoDialog->catchText(info);
+        NetInfoDialog->exec();
     }
 }
 
@@ -860,13 +854,11 @@ void Manager::on_firewall_checkBox_clicked(bool checked)
             QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
             return;
         }
-        if(iptables())
-        {
-            return;
-        }
-        else {
-            QMessageBox::warning(this, "ERROR", "net tools seem miss from your system. Please install them and try again!");
-            return;
-        }
+        // Show the NetInfo Dialog
+        NetInfo *NetInfoDialog = new NetInfo(this);
+        NetInfoDialog->setWindowTitle("NETFILTER FIREWALL SET-UP");
+        QString info = iptables();
+        NetInfoDialog->catchText(info);
+        NetInfoDialog->exec();
     }
 }

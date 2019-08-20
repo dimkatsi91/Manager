@@ -70,9 +70,9 @@ public:
     /*
      * Networking Section related functions
      */
-    bool ifconfig();
-    bool netstat();
-    bool iptables();
+    QString ifconfig();
+    QString netstat();
+    QString iptables();
 
     QString getNew_username() const;
     void setNew_username(const QString &value);

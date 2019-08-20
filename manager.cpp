@@ -740,6 +740,22 @@ bool Manager::user_exists()
     return true;
 }
 
+// Delete the user's home directory
+bool Manager::del_user_home()
+{
+    QProcess pass, rm_dir;
+    pass.setStandardOutputProcess(&rm_dir);
+    pass.start("echo " + getPassword());
+    rm_dir.start("sudo -S rm -r /home/" + getNew_username());
+    pass.waitForFinished(6000);
+    rm_dir.waitForFinished(6000);
+    if(rm_dir.exitCode()!=0)
+    {
+        return false;
+    }
+    return true;
+}
+
 void Manager::on_remove_user_button_clicked()
 {
     if(!submit_validation)
@@ -752,7 +768,7 @@ void Manager::on_remove_user_button_clicked()
         QMessageBox::information(this, "WARNING", "The user: " + getNew_username() + " does not exist in the system!");
         return;
     }
-    if(deluser())
+    if(deluser() && del_user_home())
     {
         QMessageBox::information(this, "SUCCESS", "The user: " + getNew_username() + " successfully removed from the system!");
         return;

@@ -66,6 +66,7 @@ public:
     // in order to be able to lg in there when login to the system
     bool set_chown();
     bool set_chmod();
+    bool del_user_home();
 
     /*
      * Networking Section related functions

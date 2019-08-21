@@ -680,6 +680,7 @@ bool Manager::adduser()
     options += " " + getNew_username();
     add.start("sudo -S useradd " + options);
     add.waitForFinished(-1);
+    pass.waitForFinished(6000);
     if(add.exitCode()!=0)
     {
         return false;
@@ -725,7 +726,7 @@ bool Manager::deluser()
     pass.setStandardOutputProcess(&del);
     pass.start("echo " + getPassword());
     del.start("sudo -S userdel " + getNew_username());
-    pass.waitForFinished();
+    pass.waitForFinished(6000);
     del.waitForFinished(-1);
     if(del.exitCode()!=0)
     {

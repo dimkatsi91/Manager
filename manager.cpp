@@ -557,9 +557,9 @@ void Manager::on_show_new_user_password_checkBox_clicked(bool checked)
 bool Manager::is_username_valid()
 {
     // Name of the new user should not start with a digit
-    if(getNew_username() == getenv("USER") || getNew_username().at(0).isDigit())
+    // Also a username in Linux should be lower case name
+    if(getNew_username() == getenv("USER") || getNew_username().at(0).isDigit() || getNew_username().at(0).isUpper())
     {
-        //QMessageBox::warning(this, "ERROR", "Can not create the currently logged user!");
         return false;
     }
     QVector<QString> invalid_characters = {"`", "~", "@", "!", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "<", ">", ",", ".", "=", "_", "/", ";", ":", "?"};
@@ -611,6 +611,13 @@ void Manager::on_confirm_user_stuff_checkBox_clicked(bool checked)
             QMessageBox::warning(this, "ERROR", "Please provide a valid username and try again!");
             return;
         }
+        // Show info about the new user that is about to be created. Maybe the operator wants to change some stuff
+        QString info("User: " + getNew_username());
+        info += !getNew_user_realname().isEmpty() ? "\nReal Name: " + getNew_user_realname() : "";
+        info += !getNew_groupname().isEmpty() ? "\nGroup: " + getNew_groupname() : "";
+        info += !getNew_user_id().isEmpty() ? "\nID: " + getNew_user_id() : "";
+        info += !getNew_user_shell().isEmpty() ? "\nDefault shell: " + getNew_user_shell() : "";
+        QMessageBox::information(this, "New created user information", info);
     }
 }
 

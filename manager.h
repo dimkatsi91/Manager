@@ -6,6 +6,8 @@
 #include <QProcess>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QLineEdit>
 
 namespace Ui {
 class Manager;
@@ -74,6 +76,7 @@ public:
     QString ifconfig();
     QString netstat();
     QString iptables();
+    QString Table;
 
     QString getNew_username() const;
     void setNew_username(const QString &value);
@@ -92,6 +95,8 @@ public:
 
     QString getNew_user_encr_password() const;
     void setNew_user_encr_password(const QString &value);
+
+    QString getTable() const;
 
 private slots:
     void on_show_password_checkBox_clicked(bool checked);

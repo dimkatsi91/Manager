@@ -819,18 +819,33 @@ QString Manager::ifconfig()
 
 QString Manager::iptables()
 {
+    // Let the user choose the Table to check the Firewall
+    // Tables : [ Filter | RAW | Security | Mangle ]
+    bool table_entered;
+    Table = QInputDialog::getText(nullptr, "Please choose the table to print its Firewall Set-Up",
+                                  "OPTIONS: [ mangle | filter | raw | security ]",
+                                  QLineEdit::Normal, "", &table_entered);
+    if(!table_entered || Table.isEmpty())
+    {
+        return "[]";
+    }
     QProcess pass, ip_proc;
     pass.setStandardOutputProcess(&ip_proc);
     pass.start("echo " + getPassword());
-    ip_proc.start("sudo -S iptables -L --line-numbers");
-    ip_proc.waitForFinished(6000);
-    pass.waitForFinished(6000);
+    ip_proc.start("sudo -S iptables -t " + Table + " -nL --line-numbers");
+    ip_proc.waitForFinished(-1);
+    pass.waitForFinished(-1);
     QString hold(ip_proc.readAllStandardOutput());
     if(ip_proc.exitCode()!=0)
     {
         return "[]";
     }
     return hold;
+}
+
+QString Manager::getTable() const
+{
+    return Table;
 }
 
 void Manager::on_interfaces_checkBox_clicked(bool checked)
@@ -878,11 +893,18 @@ void Manager::on_firewall_checkBox_clicked(bool checked)
             QMessageBox::critical(this, "Warning", "Please provide username & password and try again!");
             return;
         }
-        // Show the NetInfo Dialog
-        NetInfo *NetInfoDialog = new NetInfo(this);
-        NetInfoDialog->setWindowTitle("NETFILTER FIREWALL SET-UP");
-        QString info = iptables();
-        NetInfoDialog->catchText(info);
-        NetInfoDialog->exec();
+        if(iptables()=="[]")
+        {
+            QMessageBox::critical(this, "ERROR", "Please provide a valid table!");
+            return;
+        }
+        else {
+            // Show the NetInfo Dialog
+            NetInfo *NetInfoDialog = new NetInfo(this);
+            NetInfoDialog->setWindowTitle(Table.toUpper() + " FIREWALL SET-UP");
+            QString info = iptables();
+            NetInfoDialog->catchText(info);
+            NetInfoDialog->exec();
+        }
     }
 }

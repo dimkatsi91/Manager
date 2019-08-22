@@ -901,7 +901,7 @@ void Manager::on_firewall_checkBox_clicked(bool checked)
         else {
             // Show the NetInfo Dialog
             NetInfo *NetInfoDialog = new NetInfo(this);
-            NetInfoDialog->setWindowTitle(Table.toUpper() + " FIREWALL SET-UP");
+            NetInfoDialog->setWindowTitle(getTable().toUpper() + " FIREWALL SET-UP");
             QString info = iptables();
             NetInfoDialog->catchText(info);
             NetInfoDialog->exec();
